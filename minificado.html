@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+    crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap");
+
+    :root {
+      --primary: rgb(53, 28, 4);
+    }
+
+    * {
+      box-sizing: border-box;
+      outline: 0;
+      color: white;
+      font-family: "Ubuntu", sans-serif;
+    }
+
+    h1,
+    p {
+      text-align: center;
+      margin: 30px;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: black;
+    }
+
+    .container {
+      background-color: black;
+      margin-top: 40px;
+      padding: 20px 40px;
+      border-radius: 10px;
+    }
+
+    form input,
+    form label,
+    form button {
+      display: block;
+      width: 100%;
+      margin-bottom: 10px;
+      font-size: 30px;
+    }
+
+    form input {
+      font-size: 24px;
+      height: 50px;
+      padding: 0 20px;
+      color: black;
+    }
+
+    form input:focus {
+      outline: 1px solid rgb(0, 247, 255);
+    }
+
+    form button {
+      border: none;
+      background-color: black;
+      margin-top: 15px;
+      padding: 40px;
+    }
+
+    .cronometro {
+      display: grid;
+
+      align-items: center;
+      justify-content: center;
+      align-content: center;
+
+      grid-template-columns: 100%;
+      grid-template-rows: auto 100px 140px;
+      text-align: center;
+
+    }
+
+    .botoes {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      justify-items: center;
+      gap: 30px;
+
+    }
+
+    #timer {
+      font-size: 100px;
+    }
+
+    .btn {
+      border-radius: 50%;
+    }
+  </style>
+</head>
+
+<body class="bg-dark">
+
+  <div class="container">
+    <div class="cronometro">
+      <h1 style="font-size: 60px;">Timer</h1>
+
+
+      <h1 id="timer">
+        00:00:00
+      </h1>
+
+
+
+      <div class="botoes">
+        <button id="iniciar" class="btn btn-dark ">Iniciar</button>
+        <button id="pausar" class="btn btn-dark ">Pausar</button>
+        <button id="zerar" class="btn btn-dark ">Zerar</button>
+      </div>
+    </div>
+  </div>
+
+</body>
+<script>let timer = document.getElementById("timer");
+
+  let zerar = document.getElementById("zerar");
+  let iniciar = document.getElementById("iniciar");
+  let pausar = document.getElementById("pausar");
+
+  function criarData(segundos) {
+    const data = new Date(segundos * 1000);
+    return data.toLocaleTimeString("pt-BR", {
+      hour12: false,
+      timeZone: "UTC",
+    });
+  }
+  let s = 0;
+  let start = false;
+  let pausarTemp = true;
+
+  function temp() {
+    iniciar.onclick = function () {
+      start = true;
+      pausarTemp = false;
+    };
+
+    console.log(start);
+
+    if (start == true && pausarTemp == false) {
+      s++;
+      timer.innerHTML = criarData(s);
+    }
+
+    zerar.onclick = function () {
+      s = 0;
+      pausarTemp = true;
+      timer.innerHTML = criarData(s);
+    };
+
+    pausar.onclick = function () {
+      pausarTemp = true;
+    };
+  }
+
+  var ciclo = setInterval(temp, 1000);
+</script>
+
+</html>
